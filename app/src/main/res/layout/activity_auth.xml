@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".auth.AuthActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideline"/>
+
+    <LinearLayout
+        android:id="@+id/auth_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/guideline">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fullNameTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name"
+            android:labelFor="@+id/fullNameTextInputEditText"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@style/AuthTextAppearance"
+            app:hintTextAppearance="@style/AuthTextAppearance"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fullNameTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:imeOptions="actionNext"
+                android:nextFocusForward="@+id/emailTextInputEditText"
+                android:fontFamily="@font/avenir_next_regular"
+                android:textSize="14sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email Address"
+            android:labelFor="@+id/emailTextInputEditText"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@style/AuthTextAppearance"
+            app:hintTextAppearance="@style/AuthTextAppearance">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionDone"
+                android:fontFamily="@font/avenir_next_regular"
+                android:textSize="14sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:labelFor="@+id/passwordTextInputEditText"
+            app:passwordToggleEnabled="true"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@style/AuthTextAppearance"
+            app:hintTextAppearance="@style/AuthTextAppearance"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"
+                android:textSize="14sp"
+                android:fontFamily="@font/avenir_next_regular"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/searchLoginSignupContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/auth_container"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/auth_container"
+            app:backgroundTint="@color/primary"
+            app:cornerRadius="5dp"
+            android:fontFamily="@font/avenir_next_medium"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:text="Continue"
+            android:gravity="center"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginSignup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/auth_container"
+            app:backgroundTint="@color/primary"
+            app:cornerRadius="5dp"
+            android:fontFamily="@font/avenir_next_medium"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:text="Login"
+            android:gravity="center"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/scooterContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/searchLoginSignupContainer"
+        android:layout_marginTop="16dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp">
+
+        <View
+            android:id="@+id/orStart"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            app:layout_constraintTop_toTopOf="@id/or"
+            app:layout_constraintBottom_toBottomOf="@+id/or"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/or"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/or"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="12sp"
+            android:textColor="@color/secondary_text"
+            android:text="or"
+            android:fontFamily="@font/avenir_next_regular"/>
+
+        <View
+            android:id="@+id/orEnd"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            app:layout_constraintTop_toTopOf="@id/or"
+            app:layout_constraintBottom_toBottomOf="@+id/or"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/or"
+            android:layout_marginStart="16dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/scanScooter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/or"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            app:backgroundTint="@color/error"
+            app:cornerRadius="5dp"
+            android:fontFamily="@font/avenir_next_medium"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:text="Scan Scooter QR"
+            android:gravity="center"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/adminContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/scooterContainer"
+        android:layout_marginTop="16dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp">
+
+        <View
+            android:id="@+id/adminOrStart"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            app:layout_constraintTop_toTopOf="@id/adminOr"
+            app:layout_constraintBottom_toBottomOf="@+id/adminOr"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/adminOr"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/adminOr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="12sp"
+            android:textColor="@color/secondary_text"
+            android:text="or"
+            android:fontFamily="@font/avenir_next_regular"/>
+
+        <View
+            android:id="@+id/adminOrEnd"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            app:layout_constraintTop_toTopOf="@id/adminOr"
+            app:layout_constraintBottom_toBottomOf="@+id/adminOr"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/adminOr"
+            android:layout_marginStart="16dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginAsAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/adminOr"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            app:backgroundTint="@color/primary"
+            app:cornerRadius="5dp"
+            android:fontFamily="@font/avenir_next_medium"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:text="Login as Admin"
+            android:gravity="center"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

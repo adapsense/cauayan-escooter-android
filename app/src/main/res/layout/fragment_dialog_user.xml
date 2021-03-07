@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@android:color/transparent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardUseCompatPadding="true"
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="8dp"
+        app:cardBackgroundColor="@android:color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="24dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="16sp"
+                android:textColor="@color/primary_text"
+                android:text="Edit User"
+                android:fontFamily="@font/avenir_next_demi_bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fullNameTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/labelTextInputEditText"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:hintTextAppearance="@style/AuthTextAppearance"
+                app:errorTextAppearance="@style/AuthTextAppearance">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/AppTheme.Splash"
+                    android:id="@+id/fullNameTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"
+                    android:textSize="14sp"
+                    android:textColor="@color/primary_text"
+                    android:fontFamily="@font/avenir_next_medium"
+                    android:hint="Full Name"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/statusLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/primary"
+                android:fontFamily="@font/avenir_next_regular"
+                android:text="Status"
+                android:textStyle="bold"
+                android:textAlignment="viewStart"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintTop_toBottomOf="@+id/fullNameTextInputLayout"/>
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary"
+                app:layout_constraintTop_toBottomOf="@+id/statusLabel"/>
+
+            <View
+                android:id="@+id/statusBorder"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/primary"
+                android:layout_marginTop="2dp"
+                app:layout_constraintTop_toBottomOf="@+id/status"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/statusBorder"
+                app:backgroundTint="@color/primary"
+                app:cornerRadius="5dp"
+                android:fontFamily="@font/avenir_next_medium"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"
+                android:textAllCaps="false"
+                android:text="Save"
+                android:gravity="center"/>
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/save"
+                app:layout_constraintTop_toBottomOf="@+id/statusBorder"
+                app:backgroundTint="@android:color/transparent"
+                app:cornerRadius="5dp"
+                android:fontFamily="@font/avenir_next_medium"
+                android:textSize="12sp"
+                android:textColor="@color/divider"
+                android:textAllCaps="false"
+                android:text="Cancel"
+                android:gravity="center"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

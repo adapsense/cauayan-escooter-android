@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@android:color/transparent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardUseCompatPadding="true"
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="8dp"
+        app:cardBackgroundColor="@android:color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="24dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="16sp"
+                android:textColor="@color/primary_text"
+                android:text="Edit Profile"
+                android:fontFamily="@font/avenir_next_demi_bold" />
+
+            <LinearLayout
+                android:id="@+id/profileContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/title">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/fullNameTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@+id/label"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:errorTextAppearance="@style/AuthTextAppearance"
+                    android:hint="Full Name">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/AppTheme.Splash"
+                        android:id="@+id/fullNameTextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:imeOptions="actionDone"
+                        android:textSize="14sp"
+                        android:textColor="@color/primary_text"
+                        android:fontFamily="@font/avenir_next_medium"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:id="@+id/passwordContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/oldPasswordTextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:labelFor="@+id/oldPasswordTextInputEditText"
+                        app:boxBackgroundColor="@android:color/transparent"
+                        app:errorTextAppearance="@style/AuthTextAppearance"
+                        android:hint="Old Password">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/AppTheme.Splash"
+                            android:id="@+id/oldPasswordTextInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:imeOptions="actionNext"
+                            android:nextFocusForward="@+id/newPasswordTextInputEditText"
+                            android:textSize="14sp"
+                            android:textColor="@color/primary_text"
+                            android:fontFamily="@font/avenir_next_medium"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/newPasswordTextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:labelFor="@+id/newPasswordTextInputEditText"
+                        app:boxBackgroundColor="@android:color/transparent"
+                        app:errorTextAppearance="@style/AuthTextAppearance"
+                        android:hint="New Password">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/AppTheme.Splash"
+                            android:id="@+id/newPasswordTextInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:imeOptions="actionNext"
+                            android:nextFocusForward="@+id/confirmPasswordTextInputEditText"
+                            android:textSize="14sp"
+                            android:textColor="@color/primary_text"
+                            android:fontFamily="@font/avenir_next_medium"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/confirmPasswordTextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:labelFor="@+id/confirmPasswordTextInputEditText"
+                        app:boxBackgroundColor="@android:color/transparent"
+                        app:errorTextAppearance="@style/AuthTextAppearance"
+                        android:hint="Confirm Password">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/AppTheme.Splash"
+                            android:id="@+id/confirmPasswordTextInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:imeOptions="actionDone"
+                            android:textSize="14sp"
+                            android:textColor="@color/primary_text"
+                            android:fontFamily="@font/avenir_next_medium"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileContainer"
+                app:backgroundTint="@color/primary"
+                app:cornerRadius="5dp"
+                android:fontFamily="@font/avenir_next_medium"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"
+                android:textAllCaps="false"
+                android:text="Save"
+                android:gravity="center"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

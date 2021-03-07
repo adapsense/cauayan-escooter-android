@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".feedback.FeedbackActivity">
+
+	<include
+		android:id="@+id/navigation"
+		layout="@layout/navigation"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		app:layout_constraintTop_toBottomOf="@+id/navigation"
+		app:layout_constraintBottom_toTopOf="@+id/send">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:padding="24dp">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				android:textColor="@color/primary_text"
+				android:textSize="14sp"
+				android:text="Comments/Suggestions"
+				android:fontFamily="@font/avenir_next_medium"/>
+
+			<com.google.android.material.card.MaterialCardView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:cardPreventCornerOverlap="true"
+				app:cardUseCompatPadding="true"
+				app:cardElevation="0dp"
+				app:strokeColor="@color/secondary_text"
+				app:strokeWidth="1dp"
+				android:layout_marginTop="4dp">
+
+				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/content"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:background="@null"
+					android:gravity="start|top"
+					android:lines="5"
+					android:inputType="textMultiLine"
+					android:imeOptions="actionDone"
+					android:textSize="12sp"
+					android:textColor="@color/primary_text"
+					android:fontFamily="@font/avenir_next_regular"/>
+
+			</com.google.android.material.card.MaterialCardView>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				app:layout_constraintTop_toTopOf="parent"
+				android:layout_marginTop="16dp">
+
+				<com.google.android.material.button.MaterialButton
+					style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+					android:id="@+id/uploadChange"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:layout_marginEnd="4dp"
+					app:backgroundTint="@android:color/transparent"
+					app:cornerRadius="5dp"
+					app:strokeWidth="1dp"
+					app:strokeColor="@color/primary"
+					android:fontFamily="@font/avenir_next_medium"
+					android:textSize="12sp"
+					android:textColor="@color/primary"
+					android:textAllCaps="false"
+					android:text="Upload Image"
+					android:gravity="center"
+					app:icon="@drawable/upload"
+					app:iconSize="20dp"
+					app:iconTint="@color/primary"
+					app:iconGravity="textStart"/>
+
+				<com.google.android.material.button.MaterialButton
+					style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+					android:id="@+id/delete"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:layout_marginStart="4dp"
+					app:backgroundTint="@android:color/transparent"
+					app:cornerRadius="5dp"
+					app:strokeWidth="1dp"
+					app:strokeColor="@color/error"
+					android:fontFamily="@font/avenir_next_medium"
+					android:textSize="12sp"
+					android:textColor="@color/error"
+					android:textAllCaps="false"
+					android:text="Delete Image"
+					android:gravity="center"
+					app:icon="@drawable/delete"
+					app:iconSize="20dp"
+					app:iconTint="@color/error"
+					app:iconGravity="textStart"
+					android:visibility="gone"/>
+
+			</LinearLayout>
+
+			<ProgressBar
+				style="?android:attr/progressBarStyleSmall"
+				android:id="@+id/progress"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:indeterminate="true"
+				android:indeterminateTint="@color/primary"
+				android:layout_marginTop="24dp"
+				android:layout_gravity="center_horizontal"
+				android:visibility="gone"/>
+
+			<ImageView
+				android:id="@+id/image"
+				android:layout_width="200dp"
+				android:layout_height="200dp"
+				android:layout_marginTop="8dp"
+				android:scaleType="centerInside"
+				android:layout_gravity="center_horizontal"
+				android:visibility="gone"/>
+
+		</LinearLayout>
+
+	</ScrollView>
+
+	<com.google.android.material.button.MaterialButton
+		android:id="@+id/send"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="24dp"
+		android:layout_marginEnd="24dp"
+		android:layout_marginBottom="24dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		android:paddingTop="16dp"
+		android:paddingBottom="16dp"
+		app:backgroundTint="@color/primary"
+		app:cornerRadius="5dp"
+		android:fontFamily="@font/avenir_next_medium"
+		android:textSize="14sp"
+		android:textColor="@android:color/white"
+		android:textAllCaps="false"
+		android:text="Send"
+		android:gravity="center"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

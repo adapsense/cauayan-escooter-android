@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp">
+
+    <LinearLayout
+        android:id="@+id/senderContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
+        android:layout_marginStart="20dp"
+        android:padding="12dp"
+        android:background="@drawable/background_message_sender"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/senderContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:gravity="start"
+            android:textAlignment="viewStart"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/avenir_next_regular"/>
+
+        <LinearLayout
+            android:id="@+id/sentSeenContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp"
+            android:visibility="gone">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/sentSeenIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/sentSeen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/accent"
+                android:gravity="start"
+                android:textAlignment="viewStart"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_marginStart="4dp"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/avenir_next_regular"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/receiverContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary_text"
+        android:gravity="start"
+        android:textAlignment="viewStart"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_marginEnd="20dp"
+        android:padding="12dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/background_message_receiver"
+        android:fontFamily="@font/avenir_next_regular"
+        android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

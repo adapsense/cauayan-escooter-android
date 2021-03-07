@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">eScooter</string>
+    <string name="empty">\u2014</string>
+    <string name="last_update">Last Update: \u2014</string>
+</resources>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/container"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<LinearLayout
+		android:id="@+id/mapContainer"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+
+		<include
+			android:id="@+id/vehicleContainer"
+			layout="@layout/fragment_vehicle"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:visibility="gone"/>
+
+		<fragment
+			android:id="@+id/vehiclesMap"
+			android:name="com.google.android.gms.maps.SupportMapFragment"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"/>
+
+	</LinearLayout>
+
+	<View
+		android:id="@+id/addView"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		app:layout_constraintTop_toTopOf="@+id/addContainer"
+		app:layout_constraintBottom_toBottomOf="@+id/addContainer"
+		android:background="@android:color/white"/>
+
+	<RelativeLayout
+		android:id="@+id/addContainer"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingTop="4dp"
+		android:paddingBottom="4dp"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/add"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			app:backgroundTint="@color/primary"
+			app:cornerRadius="5dp"
+			android:fontFamily="@font/avenir_next_medium"
+			android:textSize="12sp"
+			android:textColor="@android:color/white"
+			android:textAllCaps="false"
+			android:text="Add Scooter"
+			android:gravity="center"
+			app:icon="@drawable/add"
+			app:iconSize="20dp"
+			app:iconTint="@android:color/white"
+			app:iconGravity="textStart"/>
+
+	</RelativeLayout>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/listContainer"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		app:layout_constraintTop_toBottomOf="@+id/addContainer"
+		app:layout_constraintBottom_toBottomOf="parent"
+		android:background="@android:color/white">
+
+		<LinearLayout
+			android:id="@+id/empty"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:visibility="gone">
+
+			<androidx.appcompat.widget.AppCompatImageView
+				android:layout_width="100dp"
+				android:layout_height="100dp"
+				android:scaleType="centerInside"
+				app:srcCompat="@drawable/empty_scooters"
+				android:layout_gravity="center_horizontal"
+				android:alpha="0.5"/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_gravity="center_horizontal"
+				android:textSize="12sp"
+				android:textColor="@color/divider"
+				android:fontFamily="@font/avenir_next_regular"
+				android:text="No scooters found" />
+
+		</LinearLayout>
+
+		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+			android:id="@+id/swipeRefreshLayout"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/recyclerView"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:paddingBottom="48dp"/>
+
+		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+	<RelativeLayout
+		android:id="@+id/mapListContainer"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="@drawable/background_map_list"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		android:padding="1dp"
+		android:layout_marginBottom="16dp">
+
+		<com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+			android:id="@+id/mapListSegmentedButtonGroup"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			app:dividerWidth="0dp"
+			app:dividerPadding="0dp"
+			app:position="0"
+			app:radius="5dp"
+			app:ripple="true"
+			android:background="@android:color/white"
+			app:selectedBackground="@color/primary">
+
+			<com.addisonelliott.segmentedbutton.SegmentedButton
+				android:id="@+id/listSegmentedButton"
+				android:layout_width="110dp"
+				android:layout_height="match_parent"
+				android:padding="4dp"
+				app:textSize="12sp"
+				app:text="List View"
+				app:textColor="@color/divider"
+				app:selectedTextColor="@android:color/white"
+				android:fontFamily="@font/avenir_next_regular"
+				app:drawable="@drawable/list"
+				app:drawableTint="@color/divider"
+				app:selectedDrawableTint="@android:color/white"
+				app:drawableGravity="left"
+				app:drawablePadding="4dp"
+				app:drawableWidth="20dp"
+				app:drawableHeight="20dp"/>
+
+			<com.addisonelliott.segmentedbutton.SegmentedButton
+				android:id="@+id/mapSegmentedButton"
+				android:layout_width="110dp"
+				android:layout_height="match_parent"
+				android:padding="4dp"
+				app:textSize="12sp"
+				app:text="Map View"
+				app:textColor="@color/divider"
+				app:selectedTextColor="@android:color/white"
+				android:fontFamily="@font/avenir_next_regular"
+				app:drawable="@drawable/map"
+				app:drawableTint="@color/divider"
+				app:selectedDrawableTint="@android:color/white"
+				app:drawableGravity="left"
+				app:drawablePadding="4dp"
+				app:drawableWidth="20dp"
+				app:drawableHeight="20dp"/>
+
+		</com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+
+	</RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

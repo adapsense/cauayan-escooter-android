@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "997264540662",
+    "firebase_url": "https://smart-mobility-project.firebaseio.com",
+    "project_id": "smart-mobility-project",
+    "storage_bucket": "smart-mobility-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997264540662:android:c1e06d8d6d9dd6fb0afdd7",
+        "android_client_info": {
+          "package_name": "com.adapsense.escooter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997264540662-dagbmbttlc3kfs563jpnlfa2kkpumues.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.adapsense.escooter",
+            "certificate_hash": "98bc3046fd16a77248bb4b0efedae168af6a53b0"
+          }
+        },
+        {
+          "client_id": "997264540662-o6kb2ibsefei4fak29n909tj24eg9ekd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.adapsense.escooter",
+            "certificate_hash": "fa1e00450392d07e56168c0fba2f55e405d633e3"
+          }
+        },
+        {
+          "client_id": "997264540662-6no3j5n29tmh03iu0rav613ph6tjjrrn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiXkxFAESCdaJ54gIHwyNGSmanKjvBuck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997264540662-6no3j5n29tmh03iu0rav613ph6tjjrrn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

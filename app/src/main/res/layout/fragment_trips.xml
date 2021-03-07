@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<LinearLayout
+		android:id="@+id/empty"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent">
+
+		<androidx.appcompat.widget.AppCompatImageView
+			android:layout_width="100dp"
+			android:layout_height="100dp"
+			android:scaleType="centerInside"
+			app:srcCompat="@drawable/empty_history"
+			android:layout_gravity="center_horizontal"
+			android:alpha="0.5"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:layout_gravity="center_horizontal"
+			android:textSize="12sp"
+			android:textColor="@color/divider"
+			android:fontFamily="@font/avenir_next_regular"
+			android:text="No history found" />
+
+	</LinearLayout>
+
+	<View
+		android:id="@+id/topBorder"
+		android:layout_width="match_parent"
+		android:layout_height="0.5dp"
+		android:background="@color/primary"
+		app:layout_constraintTop_toTopOf="parent"/>
+
+	<LinearLayout
+		android:id="@+id/header"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintTop_toBottomOf="@+id/topBorder">
+
+		<View
+			android:layout_width="0.5dp"
+			android:layout_height="match_parent"
+			android:background="@color/primary"/>
+
+		<RelativeLayout
+			android:id="@+id/vehicle"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:layout_gravity="center_vertical"
+			android:background="?selectableItemBackground"
+			android:focusable="true"
+			android:clickable="true">
+
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:layout_centerInParent="true">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textAlignment="center"
+					android:textAllCaps="false"
+					android:textSize="12sp"
+					android:textColor="@color/primary"
+					android:text="Scooter"
+					android:fontFamily="@font/avenir_next_regular"
+					android:layout_gravity="center"/>
+
+				<LinearLayout
+					android:id="@+id/vehicleSort"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:visibility="gone"
+					android:layout_gravity="center"
+					android:layout_marginStart="4dp">
+
+					<androidx.appcompat.widget.AppCompatImageView
+						android:id="@+id/vehicleSortDescending"
+						android:layout_width="10dp"
+						android:layout_height="10dp"
+						android:scaleType="centerInside"
+						app:tint="@color/secondary_text"
+						app:srcCompat="@drawable/descending"
+						android:layout_gravity="center_vertical"/>
+
+					<androidx.appcompat.widget.AppCompatImageView
+						android:id="@+id/vehicleSortAscending"
+						android:layout_width="10dp"
+						android:layout_height="10dp"
+						android:scaleType="centerInside"
+						app:tint="@color/divider"
+						app:srcCompat="@drawable/ascending"
+						android:layout_gravity="center_vertical"/>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+		</RelativeLayout>
+
+		<View
+			android:layout_width="0.5dp"
+			android:layout_height="match_parent"
+			android:background="@color/primary"/>
+
+		<RelativeLayout
+			android:id="@+id/unlockTime"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:layout_gravity="center_vertical"
+			android:background="?selectableItemBackground"
+			android:focusable="true"
+			android:clickable="true">
+
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:layout_centerInParent="true"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textAlignment="center"
+					android:textAllCaps="false"
+					android:textSize="12sp"
+					android:textColor="@color/primary"
+					android:text="Unlock\nTime"
+					android:fontFamily="@font/avenir_next_regular"
+					android:layout_gravity="center"/>
+
+				<LinearLayout
+					android:id="@+id/unlockTimeSort"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:tag="descending"
+					android:layout_gravity="center"
+					android:layout_marginStart="4dp">
+
+					<androidx.appcompat.widget.AppCompatImageView
+						android:id="@+id/unlockTimeSortDescending"
+						android:layout_width="10dp"
+						android:layout_height="10dp"
+						android:scaleType="centerInside"
+						app:tint="@color/secondary_text"
+						app:srcCompat="@drawable/descending"
+						android:layout_gravity="center_vertical"/>
+
+					<androidx.appcompat.widget.AppCompatImageView
+						android:id="@+id/unlockTimeSortAscending"
+						android:layout_width="10dp"
+						android:layout_height="10dp"
+						android:scaleType="centerInside"
+						app:tint="@color/divider"
+						app:srcCompat="@drawable/ascending"
+						android:layout_gravity="center_vertical"/>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+		</RelativeLayout>
+
+		<View
+			android:layout_width="0.5dp"
+			android:layout_height="match_parent"
+			android:background="@color/primary"/>
+
+		<RelativeLayout
+			android:id="@+id/lockTime"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:layout_gravity="center_vertical"
+			android:background="?selectableItemBackground"
+			android:focusable="true"
+			android:clickable="true">
+
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:layout_centerInParent="true"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textAlignment="center"
+					android:textAllCaps="false"
+					android:textSize="12sp"
+					android:textColor="@color/primary"
+					android:text="Lock\nTime"
+					android:fontFamily="@font/avenir_next_regular"
+					android:layout_gravity="center"/>
+
+				<LinearLayout
+					android:id="@+id/lockTimeSort"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:visibility="gone"
+					android:layout_gravity="center"
+					android:layout_marginStart="4dp">
+
+					<androidx.appcompat.widget.AppCompatImageView
+						android:id="@+id/lockTimeSortDescending"
+						android:layout_width="10dp"
+						android:layout_height="10dp"
+						android:scaleType="centerInside"
+						app:tint="@color/secondary_text"
+						app:srcCompat="@drawable/descending"
+						android:layout_gravity="center_vertical"/>
+
+					<androidx.appcompat.widget.AppCompatImageView
+						android:id="@+id/lockTimeSortAscending"
+						android:layout_width="10dp"
+						android:layout_height="10dp"
+						android:scaleType="centerInside"
+						app:tint="@color/divider"
+						app:srcCompat="@drawable/ascending"
+						android:layout_gravity="center_vertical"/>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+		</RelativeLayout>
+
+		<View
+			android:layout_width="0.5dp"
+			android:layout_height="match_parent"
+			android:background="@color/primary"/>
+
+		<RelativeLayout
+			android:id="@+id/duration"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:layout_gravity="center_vertical"
+			android:background="?selectableItemBackground"
+			android:focusable="true"
+			android:clickable="true">
+
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:layout_centerInParent="true">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textAlignment="center"
+					android:textAllCaps="false"
+					android:textSize="12sp"
+					android:textColor="@color/primary"
+					android:text="Duration"
+					android:fontFamily="@font/avenir_next_regular"
+					android:layout_gravity="center"/>
+
+				<LinearLayout
+					android:id="@+id/durationSort"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:visibility="gone"
+					android:layout_gravity="center"
+					android:layout_marginStart="4dp">
+
+					<androidx.appcompat.widget.AppCompatImageView
+						android:id="@+id/durationSortDescending"
+						android:layout_width="10dp"
+						android:layout_height="10dp"
+						android:scaleType="centerInside"
+						app:tint="@color/secondary_text"
+						app:srcCompat="@drawable/descending"
+						android:layout_gravity="center_vertical"/>
+
+					<androidx.appcompat.widget.AppCompatImageView
+						android:id="@+id/durationSortAscending"
+						android:layout_width="10dp"
+						android:layout_height="10dp"
+						android:scaleType="centerInside"
+						app:tint="@color/divider"
+						app:srcCompat="@drawable/ascending"
+						android:layout_gravity="center_vertical"/>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+		</RelativeLayout>
+
+		<View
+			android:layout_width="0.5dp"
+			android:layout_height="match_parent"
+			android:background="@color/primary"/>
+
+	</LinearLayout>
+
+	<View
+		android:id="@+id/bottomBorder"
+		android:layout_width="match_parent"
+		android:layout_height="0.5dp"
+		android:background="@color/primary"
+		app:layout_constraintTop_toBottomOf="@+id/header"/>
+
+	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+		android:id="@+id/swipeRefreshLayout"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		app:layout_constraintTop_toBottomOf="@+id/bottomBorder"
+		app:layout_constraintBottom_toBottomOf="parent" >
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/recyclerView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" />
+
+	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

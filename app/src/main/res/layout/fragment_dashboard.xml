@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<LinearLayout
+		android:id="@+id/adminContainer"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:visibility="gone">
+
+		<com.google.android.material.tabs.TabLayout
+			android:id="@+id/tabLayout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:tabMode="fixed"
+			app:tabSelectedTextColor="@color/primary"
+			app:tabTextColor="@color/divider"
+			app:tabTextAppearance="@style/DashboardTabTextAppearance"
+			app:tabIndicatorHeight="3dp"/>
+
+		<androidx.viewpager.widget.ViewPager
+			android:id="@+id/adminViewPager"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/riderContainer"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:visibility="gone">
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1" >
+
+			<ProgressBar
+				style="?android:attr/progressBarStyleSmall"
+				android:id="@+id/vehiclesProgress"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:indeterminate="true"
+				android:indeterminateTint="@color/primary"/>
+
+			<com.google.android.material.button.MaterialButton
+				android:id="@+id/scan"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="16dp"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:backgroundTint="@color/error"
+				app:cornerRadius="5dp"
+				android:fontFamily="@font/avenir_next_medium"
+				android:textSize="14sp"
+				android:textColor="@android:color/white"
+				android:textAllCaps="false"
+				android:text="Scan Scooter QR"
+				android:gravity="center"
+				app:icon="@drawable/code"
+				app:iconTint="@android:color/white"
+				app:iconGravity="textStart"
+				app:iconPadding="8dp"
+				android:visibility="gone"/>
+
+			<androidx.viewpager.widget.ViewPager
+				android:id="@+id/riderViewPager"
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toTopOf="@+id/dotsIndicator"/>
+
+			<com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+				android:id="@+id/dotsIndicator"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				app:dotsColor="#E5E5E5"
+				app:dotsSize="12dp"
+				app:dotsSpacing="2dp"
+				app:dotsWidthFactor="1.25"
+				app:selectedDotColor="@color/primary"
+				app:progressMode="false"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent"
+				android:layout_marginBottom="8dp"
+				android:visibility="gone"/>
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+		<fragment
+			android:id="@+id/riderMap"
+			android:name="com.google.android.gms.maps.SupportMapFragment"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"/>
+
+	</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
