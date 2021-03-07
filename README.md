@@ -18,3 +18,12 @@ Mobile app for Cauayan City eScooter.
     * ADD_YOUR_MQTT_BROKER_PASSWORD_HERE
 <img src="./app/screenshots/02.png" width="400" height="300" />
 5. Open debug [google_maps_api.xml](./app/src/debug/res/values/google_maps_api.xml) and release [google_maps_api.xml](./app/src/release/res/values/google_maps_api.xml) and change the value of `ADD_YOUR_GOOGLE_MAPS_API_KEY_HERE` with your own Google Maps API key.
+
+- No problems exist
+- You made it all up
+ 1. You probably missing something big
+     - That isn't really important though
+     - I don't mean to pry
+ 2. You might have just not indented enough times
+     - That seems more likely
+- This helps, right?
