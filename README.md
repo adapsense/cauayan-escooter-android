@@ -16,6 +16,8 @@ Mobile app for Cauayan City eScooter.
     * ADD_YOUR_MQTT_BROKER_URL_HERE
     * ADD_YOUR_MQTT_BROKER_USERNAME_HERE
     * ADD_YOUR_MQTT_BROKER_PASSWORD_HERE
+- ADD_YOUR_API_URL_HERE
+- ADD_YOUR_API_URL_HERE
 <img src="./app/screenshots/02.png" width="400" height="300" />
 5. Open debug [google_maps_api.xml](./app/src/debug/res/values/google_maps_api.xml) and release [google_maps_api.xml](./app/src/release/res/values/google_maps_api.xml) and change the value of `ADD_YOUR_GOOGLE_MAPS_API_KEY_HERE` with your own Google Maps API key.
 
