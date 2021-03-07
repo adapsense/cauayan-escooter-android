@@ -9,7 +9,7 @@ Mobile app for Cauayan City eScooter.
 ```git clone https://github.com/adapsense/cauayan-escooter-android.git```
 2. Open Android Studio.
 3. Select `Open an Existing Project` and open `cauayan-escooter-android` folder.
-<img src="./app/screenshots/01.png" width="400" height="300">
+<img src="./app/screenshots/01.png" width="00" height="300">
 4. Open app level [build.gradle](./app/build.gradle) and change values below with your server setup.
     * ADD_YOUR_API_URL_HERE
     * ADD_YOUR_STORAGE_URL_HERE
