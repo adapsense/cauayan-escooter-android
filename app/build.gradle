@@ -32,7 +32,6 @@ android {
             debuggable false
             minifyEnabled true
             shrinkResources true
-            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", "\"ADD_YOUR_API_URL_HERE\""
             buildConfigField "String", "UPLOADS_URL", "\"ADD_YOUR_STORAGE_URL_HERE\""
