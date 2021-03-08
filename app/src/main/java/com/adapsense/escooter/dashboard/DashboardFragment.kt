@@ -16,7 +16,6 @@ import com.adapsense.escooter.api.models.objects.VehicleLog
 import com.adapsense.escooter.base.BaseFragment
 import com.adapsense.escooter.home.HomeActivity
 import com.adapsense.escooter.maps.LatLngInterpolator
-import com.adapsense.escooter.util.AppLogger
 import com.adapsense.escooter.util.CacheUtil
 import com.adapsense.escooter.util.ViewUtil
 import com.adapsense.escooter.vehicles.adapters.VehicleInfoWindowAdapter
@@ -58,9 +57,9 @@ class DashboardFragment: BaseFragment(), DashboardContract.View {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
 
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
@@ -160,9 +159,9 @@ class DashboardFragment: BaseFragment(), DashboardContract.View {
 
             riderViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                 override fun onPageScrolled(
-                    position: Int,
-                    positionOffset: Float,
-                    positionOffsetPixels: Int
+                        position: Int,
+                        positionOffset: Float,
+                        positionOffsetPixels: Int
                 ) {
                     dashboardPresenter?.let {
                         if (position < vehicleMarkers.size) {
@@ -205,8 +204,8 @@ class DashboardFragment: BaseFragment(), DashboardContract.View {
             vehicleDialogFragment.setVehicle(vehicle, false)
             vehicleDialogFragment.isCancelable = false
             vehicleDialogFragment.show(
-                activity!!.supportFragmentManager,
-                VehicleDialogFragment::class.java.simpleName
+                    activity!!.supportFragmentManager,
+                    VehicleDialogFragment::class.java.simpleName
             )
         }
     }
@@ -222,20 +221,25 @@ class DashboardFragment: BaseFragment(), DashboardContract.View {
 
     override fun showVehicleLog(vehicle: Vehicle, vehicleLog: VehicleLog) {
 
-        val lat = vehicleLog.lat?.toDoubleOrNull()
-        val long = vehicleLog.long?.toDoubleOrNull()
+        var lat = vehicleLog.lat?.toDoubleOrNull()
+        var long = vehicleLog.long?.toDoubleOrNull()
 
-        if(lat != null && long != null) {
+        if(vehicleLog.lat == "NaN" || vehicleLog.long == "NaN" || lat == null || long == null) {
+            lat = 0.0
+            long = 0.0
+        }
+
+        if(lat != 0.0 && long != 0.0) {
 
             if (vehicleMarkers[vehicle.id] == null) {
 
                 val markerOptions = MarkerOptions().apply {
-                    position(LatLng(lat.toDouble(), long.toDouble()))
+                    position(LatLng(lat, long))
                     icon(
-                        ViewUtil.vectorDrawableToBitmapDescriptor(
-                            activity,
-                            R.drawable.marker_scooter
-                        )
+                            ViewUtil.vectorDrawableToBitmapDescriptor(
+                                    activity,
+                                    R.drawable.marker_scooter
+                            )
                     )
                     title(if (vehicle.label.isNotEmpty()) vehicle.label else vehicle.name)
 
@@ -272,9 +276,9 @@ class DashboardFragment: BaseFragment(), DashboardContract.View {
                             t = elapsed / durationInMs
                             v = interpolator.getInterpolation(t)
                             val position = latLngInterpolator.interpolate(
-                                v,
-                                startPosition,
-                                LatLng(lat, long)
+                                    v,
+                                    startPosition,
+                                    LatLng(lat, long)
                             )
                             marker.position = position
                             googleMap!!.animateCamera(CameraUpdateFactory.newLatLng(position))
@@ -295,10 +299,10 @@ class DashboardFragment: BaseFragment(), DashboardContract.View {
     override fun showVehicleMarker(marker: Marker) {
         googleMap?.let {
             it.animateCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    marker.position,
-                    15f
-                )
+                    CameraUpdateFactory.newLatLngZoom(
+                            marker.position,
+                            15f
+                    )
             )
             marker.showInfoWindow()
         }

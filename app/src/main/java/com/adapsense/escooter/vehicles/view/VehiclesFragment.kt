@@ -79,9 +79,9 @@ class VehiclesFragment: BaseFragment(), VehiclesContract.View {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_vehicles, container, false)
     }
@@ -169,9 +169,9 @@ class VehiclesFragment: BaseFragment(), VehiclesContract.View {
                 false
             }
             this@VehiclesFragment.googleMap.setInfoWindowAdapter(
-                VehicleInfoWindowAdapter(
-                    layoutInflater
-                )
+                    VehicleInfoWindowAdapter(
+                            layoutInflater
+                    )
             )
             this@VehiclesFragment.googleMap.setOnInfoWindowClickListener {
                 vehiclesPresenter.selectVehicle(it.tag as String)
@@ -184,8 +184,8 @@ class VehiclesFragment: BaseFragment(), VehiclesContract.View {
                     addView.visibility = View.VISIBLE
                     listContainer.visibility = View.VISIBLE
                     val animSlideIn = AnimationUtils.loadAnimation(
-                        parentFragment!!.activity,
-                        R.anim.slide_out_right
+                            parentFragment!!.activity,
+                            R.anim.slide_out_right
                     )
                     animSlideIn.setAnimationListener(object : Animation.AnimationListener {
                         override fun onAnimationStart(animation: Animation?) {
@@ -208,8 +208,8 @@ class VehiclesFragment: BaseFragment(), VehiclesContract.View {
                 }
                 1 -> {
                     val animSlideOut = AnimationUtils.loadAnimation(
-                        parentFragment!!.activity,
-                        R.anim.slide_out_left
+                            parentFragment!!.activity,
+                            R.anim.slide_out_left
                     )
                     animSlideOut.setAnimationListener(object : Animation.AnimationListener {
                         override fun onAnimationStart(animation: Animation?) {
@@ -268,10 +268,15 @@ class VehiclesFragment: BaseFragment(), VehiclesContract.View {
         val builder = LatLngBounds.Builder()
         for(vehicleLog in vehicleLogs.values) {
 
-            val lat = vehicleLog.lat?.toDoubleOrNull()
-            val long = vehicleLog.long?.toDoubleOrNull()
+            var lat = vehicleLog.lat?.toDoubleOrNull()
+            var long = vehicleLog.long?.toDoubleOrNull()
 
-            if(lat != null && long != null) {
+            if(vehicleLog.lat == "NaN" || vehicleLog.long == "NaN" || lat == null || long == null) {
+                lat = 0.0
+                long = 0.0
+            }
+
+            if(lat != 0.0 && long != 0.0) {
 
                 val position = LatLng(lat, long)
                 builder.include(position)
@@ -279,10 +284,10 @@ class VehiclesFragment: BaseFragment(), VehiclesContract.View {
                 val markerOptions = MarkerOptions().apply {
                     position(position)
                     icon(
-                        ViewUtil.vectorDrawableToBitmapDescriptor(
-                            activity,
-                            R.drawable.marker_scooter
-                        )
+                            ViewUtil.vectorDrawableToBitmapDescriptor(
+                                    activity,
+                                    R.drawable.marker_scooter
+                            )
                     )
                     title(vehicleLog.vehicle.name)
                 }
@@ -300,10 +305,10 @@ class VehiclesFragment: BaseFragment(), VehiclesContract.View {
         } else {
             vehicleMarkers.values.forEach { marker ->
                 googleMap.animateCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                        marker.position,
-                        15f
-                    )
+                        CameraUpdateFactory.newLatLngZoom(
+                                marker.position,
+                                15f
+                        )
                 )
                 marker.showInfoWindow()
             }
@@ -396,10 +401,15 @@ class VehiclesFragment: BaseFragment(), VehiclesContract.View {
                 if (fromMqtt) {
                     val marker = vehicleMarkers[vehicle.id]!!
 
-                    val lat = vehicleLog.lat?.toDoubleOrNull()
-                    val long = vehicleLog.long?.toDoubleOrNull()
+                    var lat = vehicleLog.lat?.toDoubleOrNull()
+                    var long = vehicleLog.long?.toDoubleOrNull()
 
-                    if (lat != null && long != null && (marker.position.latitude != lat || marker.position.longitude != long)) {
+                    if(vehicleLog.lat == "NaN" || vehicleLog.long == "NaN" || lat == null || long == null) {
+                        lat = 0.0
+                        long = 0.0
+                    }
+
+                    if (lat != 0.0 && long != 0.0 && (marker.position.latitude != lat || marker.position.longitude != long)) {
 
                         marker.hideInfoWindow()
 
@@ -420,9 +430,9 @@ class VehiclesFragment: BaseFragment(), VehiclesContract.View {
                                 t = elapsed / durationInMs
                                 v = interpolator.getInterpolation(t)
                                 val position = latLngInterpolator.interpolate(
-                                    v,
-                                    startPosition,
-                                    LatLng(lat, long)
+                                        v,
+                                        startPosition,
+                                        LatLng(lat, long)
                                 )
                                 marker.position = position
                                 googleMap.animateCamera(CameraUpdateFactory.newLatLng(position))
@@ -441,10 +451,10 @@ class VehiclesFragment: BaseFragment(), VehiclesContract.View {
                         marker.isVisible = vehicleId == vehicle.id
                         if (vehicleId == vehicle.id) {
                             googleMap.animateCamera(
-                                CameraUpdateFactory.newLatLngZoom(
-                                    marker.position,
-                                    15f
-                                )
+                                    CameraUpdateFactory.newLatLngZoom(
+                                            marker.position,
+                                            15f
+                                    )
                             )
                             marker.showInfoWindow()
                         }
@@ -498,11 +508,11 @@ class VehiclesFragment: BaseFragment(), VehiclesContract.View {
         connectOptions.userName = BuildConfig.MQTT_USERNAME
         connectOptions.password = BuildConfig.MQTT_PASSWORD.toCharArray()
         vehiclesPresenter.initializeMqtt(
-            MqttAndroidClient(
-                activity,
-                BuildConfig.MQTT_BROKER,
-                MqttClient.generateClientId()
-            ), connectOptions
+                MqttAndroidClient(
+                        activity,
+                        BuildConfig.MQTT_BROKER,
+                        MqttClient.generateClientId()
+                ), connectOptions
         )
     }
 
@@ -581,33 +591,33 @@ class VehiclesFragment: BaseFragment(), VehiclesContract.View {
             val qr = dialog.findViewById<ImageView>(R.id.qr)
 
             Glide.with(activity!!).load(BuildConfig.UPLOADS_URL + vehicle.qr)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .apply(RequestOptions.centerInsideTransform())
-                .listener(object : RequestListener<Drawable?> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: com.bumptech.glide.request.target.Target<Drawable?>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        progress.visibility = View.GONE
-                        qr.visibility = View.GONE
-                        return false
-                    }
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .apply(RequestOptions.centerInsideTransform())
+                    .listener(object : RequestListener<Drawable?> {
+                        override fun onLoadFailed(
+                                e: GlideException?,
+                                model: Any?,
+                                target: com.bumptech.glide.request.target.Target<Drawable?>?,
+                                isFirstResource: Boolean
+                        ): Boolean {
+                            progress.visibility = View.GONE
+                            qr.visibility = View.GONE
+                            return false
+                        }
 
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: com.bumptech.glide.request.target.Target<Drawable?>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        progress.visibility = View.GONE
-                        qr.visibility = View.VISIBLE
-                        return false
-                    }
+                        override fun onResourceReady(
+                                resource: Drawable?,
+                                model: Any?,
+                                target: com.bumptech.glide.request.target.Target<Drawable?>?,
+                                dataSource: DataSource?,
+                                isFirstResource: Boolean
+                        ): Boolean {
+                            progress.visibility = View.GONE
+                            qr.visibility = View.VISIBLE
+                            return false
+                        }
 
-                }).into(qr)
+                    }).into(qr)
 
             dialog.show()
         }

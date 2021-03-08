@@ -16,13 +16,13 @@ import com.adapsense.escooter.api.models.objects.*
 import com.adapsense.escooter.base.BaseFragment
 import com.adapsense.escooter.dashboard.DashboardFragment
 import com.adapsense.escooter.home.HomeActivity
-import com.adapsense.escooter.util.AppLogger
 import com.adapsense.escooter.vehicles.VehiclesContract
 import com.adapsense.escooter.vehicles.VehiclesPresenter
 import kotlinx.android.synthetic.main.fragment_vehicle.*
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.MqttClient
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -45,9 +45,9 @@ class VehicleFragment : BaseFragment(), VehiclesContract.View {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
 
         return inflater.inflate(R.layout.fragment_vehicle, container, false)
@@ -85,7 +85,10 @@ class VehicleFragment : BaseFragment(), VehiclesContract.View {
             vehicleDialogFragment!!.setVehicles(vehiclesPresenter.getRiderVehicles())
             vehicleDialogFragment!!.setVehicle(vehiclesPresenter.getVehicle()!!, false)
             vehicleDialogFragment!!.isCancelable = false
-            vehicleDialogFragment!!.show(parentFragment!!.childFragmentManager, VehicleDialogFragment::class.java.simpleName)
+            vehicleDialogFragment!!.show(
+                    parentFragment!!.childFragmentManager,
+                    VehicleDialogFragment::class.java.simpleName
+            )
         }
 
         lock.setOnClickListener {
@@ -119,24 +122,24 @@ class VehicleFragment : BaseFragment(), VehiclesContract.View {
                 vehiclesPresenter.setEmergencyAlarmVehicle(it.lockStatus != "E")
                 if (it.lockStatus == "E") {
                     (activity as HomeActivity).showAlertDialog("Emergency Alarm",
-                        "Are you to turn OFF emergency alarm?",
-                        "Turn OFF",
-                        { dialog, _ ->
-                            dialog!!.dismiss()
-                            showEmergencyAlarmVehicle(false)
-                        },
-                        "Cancel",
-                        { dialog, _ -> dialog!!.dismiss() })
+                            "Are you to turn OFF emergency alarm?",
+                            "Turn OFF",
+                            { dialog, _ ->
+                                dialog!!.dismiss()
+                                showEmergencyAlarmVehicle(false)
+                            },
+                            "Cancel",
+                            { dialog, _ -> dialog!!.dismiss() })
                 } else {
                     (activity as HomeActivity).showAlertDialog("Emergency Alarm",
-                        "Are you to turn ON emergency alarm?",
-                        "Turn ON",
-                        { dialog, _ ->
-                            dialog!!.dismiss()
-                            showEmergencyAlarmVehicle(true)
-                        },
-                        "Cancel",
-                        { dialog, _ -> dialog!!.dismiss() })
+                            "Are you to turn ON emergency alarm?",
+                            "Turn ON",
+                            { dialog, _ ->
+                                dialog!!.dismiss()
+                                showEmergencyAlarmVehicle(true)
+                            },
+                            "Cancel",
+                            { dialog, _ -> dialog!!.dismiss() })
                 }
             }
         }
@@ -227,7 +230,7 @@ class VehicleFragment : BaseFragment(), VehiclesContract.View {
 
                 if (fromMqtt) {
                     status.text =
-                        "${if (vehicle.label.isNotEmpty()) vehicle.label else "My Scooter"} is ${vehicleLog.message}"
+                            "${if (vehicle.label.isNotEmpty()) vehicle.label else "My Scooter"} is ${vehicleLog.message}"
                 }
 
                 if (fromMqtt && lock.visibility == View.GONE) {
@@ -298,11 +301,11 @@ class VehicleFragment : BaseFragment(), VehiclesContract.View {
             connectOptions.userName = BuildConfig.MQTT_USERNAME
             connectOptions.password = BuildConfig.MQTT_PASSWORD.toCharArray()
             vehiclesPresenter.initializeMqtt(
-                MqttAndroidClient(
-                    fragmentActivity,
-                    BuildConfig.MQTT_BROKER,
-                    MqttClient.generateClientId()
-                ), connectOptions
+                    MqttAndroidClient(
+                            fragmentActivity,
+                            BuildConfig.MQTT_BROKER,
+                            MqttClient.generateClientId()
+                    ), connectOptions
             )
         }
     }

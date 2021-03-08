@@ -267,7 +267,7 @@ class VehiclesPresenter(private val vehiclesView: VehiclesContract.View) : Vehic
                     VehiclesApiCall.update(vehicle!!, object : ApiRequestListener {
                         override fun onSuccess(obj: Any) {
                             val vehicleResponse =
-                                Gson().fromJson(obj.toString(), VehicleResponse::class.java)
+                                    Gson().fromJson(obj.toString(), VehicleResponse::class.java)
                             if (vehicleResponse.success && vehicleResponse.vehicle != null) {
                                 val vehicle = vehicleResponse.vehicle!!
                                 if (!settings) {
@@ -283,7 +283,7 @@ class VehiclesPresenter(private val vehiclesView: VehiclesContract.View) : Vehic
                         override fun onError(obj: Any) {
                             AppLogger.printRetrofitError(obj)
                             val errorResponse =
-                                Gson().fromJson(obj.toString(), ErrorResponse::class.java)
+                                    Gson().fromJson(obj.toString(), ErrorResponse::class.java)
                             vehiclesView.showMessage(if (errorResponse.error != null) errorResponse.error!! else "An unexpected error occurred.")
                         }
 
@@ -292,7 +292,7 @@ class VehiclesPresenter(private val vehiclesView: VehiclesContract.View) : Vehic
                     VehiclesApiCall.update(vehicle!!, imageFile, object : ApiRequestListener {
                         override fun onSuccess(obj: Any) {
                             val vehicleResponse =
-                                Gson().fromJson(obj.toString(), VehicleResponse::class.java)
+                                    Gson().fromJson(obj.toString(), VehicleResponse::class.java)
                             if (vehicleResponse != null && vehicleResponse.success && vehicleResponse.vehicle != null) {
                                 val vehicle = vehicleResponse.vehicle!!
                                 vehiclesView.updateSettingsVehicle(vehicle)
@@ -304,7 +304,7 @@ class VehiclesPresenter(private val vehiclesView: VehiclesContract.View) : Vehic
                         override fun onError(obj: Any) {
                             AppLogger.printRetrofitError(obj)
                             val errorResponse =
-                                Gson().fromJson(obj.toString(), ErrorResponse::class.java)
+                                    Gson().fromJson(obj.toString(), ErrorResponse::class.java)
                             if (errorResponse.error != null) {
                                 vehiclesView.showMessage(errorResponse.error!!)
                             } else {
@@ -337,7 +337,7 @@ class VehiclesPresenter(private val vehiclesView: VehiclesContract.View) : Vehic
 
                 override fun onSuccess(obj: Any) {
                     val vehicleLogResponse =
-                        Gson().fromJson(obj.toString(), VehicleLogResponse::class.java)
+                            Gson().fromJson(obj.toString(), VehicleLogResponse::class.java)
                     if (vehicleLogResponse.success && vehicleLogResponse.vehicleLog != null) {
                         vehicleLog = vehicleLogResponse.vehicleLog
                         vehiclesView.showVehicleLog(false, vehicleLog!!)
@@ -355,95 +355,98 @@ class VehiclesPresenter(private val vehiclesView: VehiclesContract.View) : Vehic
     }
 
     override fun initializeMqtt(client: MqttAndroidClient, connectOptions: MqttConnectOptions) {
-        if(vehicle != null) {
-            disconnectMqtt()
-            this.mqttAndroidClient = client
-            this.mqttAndroidClient?.apply {
-                connect(connectOptions).actionCallback = object :
-                    IMqttActionListener {
-                    override fun onSuccess(asyncActionToken: IMqttToken?) {
-                        AppLogger.info("Connected: ${BuildConfig.MQTT_BROKER}")
-                        val locationTopic =
-                            "location/${if (vehicle!!.topic.isNotEmpty()) vehicle!!.topic else vehicle!!.id}"
-                        AppLogger.info("Subscribe: $locationTopic")
-                        subscribe(
-                            locationTopic, 1
-                        ) { _, message ->
+        try {
+            if(vehicle != null) {
+                disconnectMqtt()
+                this.mqttAndroidClient = client
+                this.mqttAndroidClient?.apply {
+                    connect(connectOptions).actionCallback = object :
+                            IMqttActionListener {
+                        override fun onSuccess(asyncActionToken: IMqttToken?) {
+                            AppLogger.info("Connected: ${BuildConfig.MQTT_BROKER}")
+                            val locationTopic =
+                                    "location/${if (vehicle!!.topic.isNotEmpty()) vehicle!!.topic else vehicle!!.id}"
                             AppLogger.info("Subscribe: $locationTopic")
-                            AppLogger.info(String(message.payload, StandardCharsets.UTF_8))
-                            val vehicleLogs = Gson().fromJson<List<VehicleLog>>(
-                                String(
-                                    message.payload,
-                                    StandardCharsets.UTF_8
-                                ), object : TypeToken<List<VehicleLog>>() {}.type
-                            )
-                            if (vehicleLogs.isNotEmpty()) {
-                                vehicleLog?.apply {
-                                    lat = vehicleLogs[vehicleLogs.size - 1].lat
-                                    long = vehicleLogs[vehicleLogs.size - 1].long
+                            subscribe(
+                                    locationTopic, 1
+                            ) { _, message ->
+                                AppLogger.info("Subscribe: $locationTopic")
+                                AppLogger.info(String(message.payload, StandardCharsets.UTF_8))
+                                val vehicleLogs = Gson().fromJson<List<VehicleLog>>(
+                                        String(
+                                                message.payload,
+                                                StandardCharsets.UTF_8
+                                        ), object : TypeToken<List<VehicleLog>>() {}.type
+                                )
+                                if (vehicleLogs.isNotEmpty()) {
+                                    vehicleLog?.apply {
+                                        lat = vehicleLogs[vehicleLogs.size - 1].lat
+                                        long = vehicleLogs[vehicleLogs.size - 1].long
+                                    }
+                                    vehiclesView.showVehicleLog(true, vehicleLogs[vehicleLogs.size - 1])
                                 }
-                                vehiclesView.showVehicleLog(true, vehicleLogs[vehicleLogs.size - 1])
                             }
-                        }
 
-                        val lockTopic =
-                            "lock/${if (vehicle!!.topic.isNotEmpty()) vehicle!!.topic else vehicle!!.id}"
-                        AppLogger.info("Subscribe: $lockTopic")
-                        subscribe(
-                            lockTopic, 1
-                        ) { _, message ->
+                            val lockTopic =
+                                    "lock/${if (vehicle!!.topic.isNotEmpty()) vehicle!!.topic else vehicle!!.id}"
                             AppLogger.info("Subscribe: $lockTopic")
-                            AppLogger.info(String(message.payload, StandardCharsets.UTF_8))
-                            vehicleLog?.apply {
-                                lockStatus = "L"
-                            }
-                            vehiclesView.showLockVehicle(true)
-                        }
-
-                        val unlockTopic =
-                            "unlock/${if (vehicle!!.topic.isNotEmpty()) vehicle!!.topic else vehicle!!.id}"
-                        AppLogger.info("Subscribe: $unlockTopic")
-                        subscribe(
-                            unlockTopic, 1
-                        ) { _, message ->
-                            AppLogger.info("Subscribe: $unlockTopic")
-                            AppLogger.info(String(message.payload, StandardCharsets.UTF_8))
-                            vehicleLog?.apply {
-                                if (lockStatus == "E") {
-                                    vehiclesView.showEmergencyAlarmVehicle(false)
-                                } else {
-                                    vehiclesView.showLockVehicle(false)
+                            subscribe(
+                                    lockTopic, 1
+                            ) { _, message ->
+                                AppLogger.info("Subscribe: $lockTopic")
+                                AppLogger.info(String(message.payload, StandardCharsets.UTF_8))
+                                vehicleLog?.apply {
+                                    lockStatus = "L"
                                 }
-                                lockStatus = "U"
+                                vehiclesView.showLockVehicle(true)
                             }
-                        }
 
-                        val alarmTopic =
-                            "alarm/${if (vehicle!!.topic.isNotEmpty()) vehicle!!.topic else vehicle!!.id}"
-                        AppLogger.info("Subscribe: $alarmTopic")
-                        subscribe(
-                            alarmTopic, 1
-                        ) { _, message ->
+                            val unlockTopic =
+                                    "unlock/${if (vehicle!!.topic.isNotEmpty()) vehicle!!.topic else vehicle!!.id}"
+                            AppLogger.info("Subscribe: $unlockTopic")
+                            subscribe(
+                                    unlockTopic, 1
+                            ) { _, message ->
+                                AppLogger.info("Subscribe: $unlockTopic")
+                                AppLogger.info(String(message.payload, StandardCharsets.UTF_8))
+                                vehicleLog?.apply {
+                                    if (lockStatus == "E") {
+                                        vehiclesView.showEmergencyAlarmVehicle(false)
+                                    } else {
+                                        vehiclesView.showLockVehicle(false)
+                                    }
+                                    lockStatus = "U"
+                                }
+                            }
+
+                            val alarmTopic =
+                                    "alarm/${if (vehicle!!.topic.isNotEmpty()) vehicle!!.topic else vehicle!!.id}"
                             AppLogger.info("Subscribe: $alarmTopic")
-                            AppLogger.info(String(message.payload, StandardCharsets.UTF_8))
-                            vehicleLog?.apply {
-                                lockStatus = "E"
+                            subscribe(
+                                    alarmTopic, 1
+                            ) { _, message ->
+                                AppLogger.info("Subscribe: $alarmTopic")
+                                AppLogger.info(String(message.payload, StandardCharsets.UTF_8))
+                                vehicleLog?.apply {
+                                    lockStatus = "E"
+                                }
+                                vehiclesView.showEmergencyAlarmVehicle(true)
                             }
-                            vehiclesView.showEmergencyAlarmVehicle(true)
                         }
-                    }
 
-                    override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-                        AppLogger.info("Connect Failure: ${exception!!.message}")
-                        exception.printStackTrace()
-                        vehiclesView.showVehicle(vehicle)
-                        getLatestLog()
-                    }
+                        override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
+                            AppLogger.info("Connect Failure: ${exception!!.message}")
+                            exception.printStackTrace()
+                            vehiclesView.showVehicle(vehicle)
+                            getLatestLog()
+                        }
 
+                    }
                 }
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-
     }
 
     override fun disconnectMqtt() {
@@ -470,9 +473,9 @@ class VehiclesPresenter(private val vehiclesView: VehiclesContract.View) : Vehic
     override fun setLockVehicle(lock: Boolean) {
         if(vehicle != null) {
             val topic =
-                "${if (lock) "lock" else "unlock"}/${if (vehicle!!.topic.isNotEmpty()) vehicle!!.topic else vehicle!!.id}"
+                    "${if (lock) "lock" else "unlock"}/${if (vehicle!!.topic.isNotEmpty()) vehicle!!.topic else vehicle!!.id}"
             val message =
-                if (lock) VehicleMessagePayload.LOCK.value else VehicleMessagePayload.UNLOCK.value
+                    if (lock) VehicleMessagePayload.LOCK.value else VehicleMessagePayload.UNLOCK.value
             AppLogger.info("Publish: $topic")
             AppLogger.info(message)
             mqttAndroidClient?.apply {
@@ -503,7 +506,7 @@ class VehiclesPresenter(private val vehiclesView: VehiclesContract.View) : Vehic
                     TripsApiCall.start(this, object : ApiRequestListener {
                         override fun onSuccess(obj: Any) {
                             val tripResponse =
-                                Gson().fromJson(obj.toString(), TripResponse::class.java)
+                                    Gson().fromJson(obj.toString(), TripResponse::class.java)
                             if (tripResponse.success && tripResponse.trip != null) {
                                 trip = tripResponse.trip
                             }
@@ -540,9 +543,9 @@ class VehiclesPresenter(private val vehiclesView: VehiclesContract.View) : Vehic
     override fun setEmergencyAlarmVehicle(on: Boolean) {
         if(vehicle != null) {
             val topic =
-                "${if (on) "alarm" else "unlock"}/${if (vehicle!!.topic.isNotEmpty()) vehicle!!.topic else vehicle!!.id}"
+                    "${if (on) "alarm" else "unlock"}/${if (vehicle!!.topic.isNotEmpty()) vehicle!!.topic else vehicle!!.id}"
             val message =
-                if (on) VehicleMessagePayload.ALARM.value else VehicleMessagePayload.UNLOCK.value
+                    if (on) VehicleMessagePayload.ALARM.value else VehicleMessagePayload.UNLOCK.value
             AppLogger.info("Publish: $topic")
             AppLogger.info(message)
             mqttAndroidClient?.apply {
@@ -606,11 +609,11 @@ class VehiclesPresenter(private val vehiclesView: VehiclesContract.View) : Vehic
     }
 
     override fun addVehicle(
-        name: String,
-        serialNumber: String,
-        brand: String,
-        model: String,
-        imageFile: File?
+            name: String,
+            serialNumber: String,
+            brand: String,
+            model: String,
+            imageFile: File?
     ) {
         vehicle = Vehicle()
         var valid = true
@@ -653,7 +656,7 @@ class VehiclesPresenter(private val vehiclesView: VehiclesContract.View) : Vehic
                 VehiclesApiCall.add(vehicle!!, object : ApiRequestListener {
                     override fun onSuccess(obj: Any) {
                         val vehicleResponse =
-                            Gson().fromJson(obj.toString(), VehicleResponse::class.java)
+                                Gson().fromJson(obj.toString(), VehicleResponse::class.java)
                         if (vehicleResponse.success && vehicleResponse.vehicle != null) {
                             val vehicle = vehicleResponse.vehicle!!
                             vehicles.add(vehicle)
@@ -666,7 +669,7 @@ class VehiclesPresenter(private val vehiclesView: VehiclesContract.View) : Vehic
                     override fun onError(obj: Any) {
                         AppLogger.printRetrofitError(obj)
                         val errorResponse =
-                            Gson().fromJson(obj.toString(), ErrorResponse::class.java)
+                                Gson().fromJson(obj.toString(), ErrorResponse::class.java)
                         vehiclesView.showMessage(if (errorResponse.error != null) errorResponse.error!! else "An unexpected error occurred.")
                     }
 
@@ -675,7 +678,7 @@ class VehiclesPresenter(private val vehiclesView: VehiclesContract.View) : Vehic
                 VehiclesApiCall.add(vehicle!!, imageFile, object : ApiRequestListener {
                     override fun onSuccess(obj: Any) {
                         val vehicleResponse =
-                            Gson().fromJson(obj.toString(), VehicleResponse::class.java)
+                                Gson().fromJson(obj.toString(), VehicleResponse::class.java)
                         if (vehicleResponse != null && vehicleResponse.success && vehicleResponse.vehicle != null) {
                             val vehicle = vehicleResponse.vehicle!!
                             vehicles.add(vehicle)
