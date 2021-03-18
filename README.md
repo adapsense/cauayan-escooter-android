@@ -15,7 +15,22 @@ git clone https://github.com/adapsense/cauayan-escooter-android.git
 3. Select `Open an Existing Project` and open `cauayan-escooter-android` folder.
 <img src="./app/screenshots/01.png" width="350" height="300" >
 
-4. Open app level [build.gradle](./app/build.gradle) and change values below with your server setup. 
+4. Open `SDK Manager` by clicking the 3rd button from the right of toolbar at the top.
+<img src="./app/screenshots/11.png" width="400" height="250" >
+
+5. Select `Android 10.0.0 (Q)` then click `Apply`.
+<img src="./app/screenshots/12.png" width="400" height="250" >
+
+6. Click `OK` to start the download.
+<img src="./app/screenshots/13.png" width="400" height="250" >
+
+7. Wait for the download to complete the `Finish`. Close the `SDK Manager` window.
+<img src="./app/screenshots/14.png" width="400" height="250" >
+
+8. Refresh the project by clicking the 5th button from the right of toolbar at the top.
+<img src="./app/screenshots/15.png" width="400" height="250" >
+
+9. Open app level [build.gradle](./app/build.gradle) and change values below with your server setup. 
  * ADD_YOUR_API_URL_HERE
  * ADD_YOUR_STORAGE_URL_HERE
  * ADD_YOUR_MQTT_BROKER_URL_HERE
@@ -23,7 +38,7 @@ git clone https://github.com/adapsense/cauayan-escooter-android.git
  * ADD_YOUR_MQTT_BROKER_PASSWORD_HERE
 <img src="./app/screenshots/02.png" width="400" height="230" >
 
-5. Open debug [google_maps_api.xml](./app/src/debug/res/values/google_maps_api.xml) and release [google_maps_api.xml](./app/src/release/res/values/google_maps_api.xml) and change the value of `ADD_YOUR_GOOGLE_MAPS_API_KEY_HERE` with your own Google Maps API key.
+10. Open debug [google_maps_api.xml](./app/src/debug/res/values/google_maps_api.xml) and release [google_maps_api.xml](./app/src/release/res/values/google_maps_api.xml) and change the value of `ADD_YOUR_GOOGLE_MAPS_API_KEY_HERE` with your own Google Maps API key.
 
 ## Testing
 1. In your Android device, enable developer mode by going to Settings > About phone > Software Information.
